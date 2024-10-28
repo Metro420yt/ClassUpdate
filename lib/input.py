@@ -37,7 +37,7 @@ def get_config(config_filename):
     raw_config.read(config_filename)
 
     profile = "DEFAULT"
-    if (len(args) != 0):
+    if len(args) != 0:
         profile = args[0]
 
     if "-y" not in flags and input(f"Use {q(profile)} profile? [Y/n]\t").lower() == "n":
@@ -45,8 +45,7 @@ def get_config(config_filename):
         profile = try_user(raw_config, profile)
 
     if profile not in raw_config:
-        print(ValueError(f'unknown profile: "{profile}"'))
-        sys.exit()
+        raise ValueError(f'unknown profile: "{profile}"')
 
     config_user = raw_config[profile]
     config = {
